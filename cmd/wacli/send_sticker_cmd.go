@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/openclaw/wacli/internal/out"
+	"github.com/abhishekkp09/wacli/internal/out"
 	"github.com/spf13/cobra"
 )
 

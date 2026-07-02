@@ -17,8 +17,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/openclaw/wacli/internal/linkpreview"
-	"github.com/openclaw/wacli/internal/wa"
+	"github.com/abhishekkp09/wacli/internal/linkpreview"
+	"github.com/abhishekkp09/wacli/internal/wa"
 )
 
 var syncWebhookPrivateHTTPClient = &http.Client{

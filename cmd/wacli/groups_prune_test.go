@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openclaw/wacli/internal/store"
+	"github.com/abhishekkp09/wacli/internal/store"
 )
 
 func TestGroupsPruneExposesSafetyFlags(t *testing.T) {

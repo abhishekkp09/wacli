@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/openclaw/wacli/internal/resolve"
-	"github.com/openclaw/wacli/internal/store"
-	"github.com/openclaw/wacli/internal/wa"
+	"github.com/abhishekkp09/wacli/internal/resolve"
+	"github.com/abhishekkp09/wacli/internal/store"
+	"github.com/abhishekkp09/wacli/internal/wa"
 	"go.mau.fi/whatsmeow/types"
 )
 

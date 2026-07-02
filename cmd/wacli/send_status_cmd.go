@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/openclaw/wacli/internal/out"
-	"github.com/openclaw/wacli/internal/store"
+	"github.com/abhishekkp09/wacli/internal/out"
+	"github.com/abhishekkp09/wacli/internal/store"
 	"github.com/spf13/cobra"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/types"

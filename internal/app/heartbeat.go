@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/openclaw/wacli/internal/fsutil"
+	"github.com/abhishekkp09/wacli/internal/fsutil"
 )
 
 const heartbeatMinInterval = time.Minute

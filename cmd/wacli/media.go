@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/openclaw/wacli/internal/out"
-	"github.com/openclaw/wacli/internal/wa"
+	"github.com/abhishekkp09/wacli/internal/out"
+	"github.com/abhishekkp09/wacli/internal/wa"
 	"github.com/spf13/cobra"
 )
 

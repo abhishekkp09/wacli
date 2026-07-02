@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/openclaw/wacli/internal/out"
-	"github.com/openclaw/wacli/internal/store"
-	"github.com/openclaw/wacli/internal/syscontacts"
+	"github.com/abhishekkp09/wacli/internal/out"
+	"github.com/abhishekkp09/wacli/internal/store"
+	"github.com/abhishekkp09/wacli/internal/syscontacts"
 	"github.com/spf13/cobra"
 )
 

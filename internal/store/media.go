@@ -3,7 +3,7 @@ package store
 import (
 	"time"
 
-	"github.com/openclaw/wacli/internal/store/storedb"
+	"github.com/abhishekkp09/wacli/internal/store/storedb"
 )
 
 func (d *DB) GetMediaDownloadInfo(chatJID, msgID string) (MediaDownloadInfo, error) {

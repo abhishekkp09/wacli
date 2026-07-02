@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	appPkg "github.com/openclaw/wacli/internal/app"
-	"github.com/openclaw/wacli/internal/lock"
-	"github.com/openclaw/wacli/internal/out"
-	"github.com/openclaw/wacli/internal/store"
+	appPkg "github.com/abhishekkp09/wacli/internal/app"
+	"github.com/abhishekkp09/wacli/internal/lock"
+	"github.com/abhishekkp09/wacli/internal/out"
+	"github.com/abhishekkp09/wacli/internal/store"
 	"github.com/spf13/cobra"
 )
 

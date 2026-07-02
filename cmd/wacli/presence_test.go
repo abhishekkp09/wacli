@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openclaw/wacli/internal/lock"
+	"github.com/abhishekkp09/wacli/internal/lock"
 	"go.mau.fi/whatsmeow/types"
 )
 

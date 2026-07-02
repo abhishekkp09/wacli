@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/openclaw/wacli/internal/fsutil"
+	"github.com/abhishekkp09/wacli/internal/fsutil"
 )
 
 type Lock struct {

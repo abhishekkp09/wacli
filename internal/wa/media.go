@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/openclaw/wacli/internal/fsutil"
+	"github.com/abhishekkp09/wacli/internal/fsutil"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/socket"
 	"go.mau.fi/whatsmeow/util/cbcutil"

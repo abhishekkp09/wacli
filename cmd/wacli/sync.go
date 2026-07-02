@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	appPkg "github.com/openclaw/wacli/internal/app"
-	"github.com/openclaw/wacli/internal/out"
+	appPkg "github.com/abhishekkp09/wacli/internal/app"
+	"github.com/abhishekkp09/wacli/internal/out"
 	"github.com/spf13/cobra"
 )
 

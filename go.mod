@@ -1,4 +1,4 @@
-module github.com/openclaw/wacli
+module github.com/abhishekkp09/wacli
 
 go 1.25.0
 

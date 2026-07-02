@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openclaw/wacli/internal/store"
+	"github.com/abhishekkp09/wacli/internal/store"
 	"go.mau.fi/whatsmeow/types"
 )
 

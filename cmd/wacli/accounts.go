@@ -8,10 +8,10 @@ import (
 	"sort"
 	"time"
 
-	"github.com/openclaw/wacli/internal/config"
-	"github.com/openclaw/wacli/internal/fsutil"
-	"github.com/openclaw/wacli/internal/lock"
-	"github.com/openclaw/wacli/internal/out"
+	"github.com/abhishekkp09/wacli/internal/config"
+	"github.com/abhishekkp09/wacli/internal/fsutil"
+	"github.com/abhishekkp09/wacli/internal/lock"
+	"github.com/abhishekkp09/wacli/internal/out"
 	"github.com/spf13/cobra"
 )
 
