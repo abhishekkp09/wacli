@@ -33,6 +33,7 @@ var schemaMigrations = []migration{
 	{version: 17, name: "status messages", up: migrateStatusMessages},
 	{version: 18, name: "chat unread count column", up: migrateChatUnreadCountColumn},
 	{version: 19, name: "messages quoted columns", up: migrateMessagesQuotedColumns},
+	{version: 20, name: "deletions audit table", up: migrateDeletions},
 }
 
 func (d *DB) ensureSchema() error {
@@ -105,6 +106,9 @@ func (d *DB) ensureCurrentSchema() error {
 	}
 	if err := migrateMessagesQuotedColumns(d); err != nil {
 		return fmt.Errorf("ensure current messages quoted columns: %w", err)
+	}
+	if err := migrateDeletions(d); err != nil {
+		return fmt.Errorf("ensure current deletions schema: %w", err)
 	}
 	return nil
 }
@@ -414,6 +418,25 @@ func migratePolls(d *DB) error {
 		CREATE INDEX IF NOT EXISTS idx_poll_votes_poll ON poll_votes(chat_jid, poll_msg_id);
 	`); err != nil {
 		return fmt.Errorf("create polls tables: %w", err)
+	}
+	return nil
+}
+
+func migrateDeletions(d *DB) error {
+	if _, err := d.sql.Exec(`
+		CREATE TABLE IF NOT EXISTS deletions (
+			rowid INTEGER PRIMARY KEY AUTOINCREMENT,
+			kind TEXT NOT NULL,
+			chat_jid TEXT NOT NULL,
+			stanza_id TEXT NOT NULL DEFAULT '',
+			from_me INTEGER,
+			deleted_at INTEGER NOT NULL,
+			UNIQUE(kind, chat_jid, stanza_id, deleted_at)
+		);
+		CREATE INDEX IF NOT EXISTS idx_deletions_deleted_at ON deletions(deleted_at);
+		CREATE INDEX IF NOT EXISTS idx_deletions_kind_deleted_at ON deletions(kind, deleted_at);
+	`); err != nil {
+		return fmt.Errorf("create deletions table: %w", err)
 	}
 	return nil
 }

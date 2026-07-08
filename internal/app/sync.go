@@ -502,6 +502,20 @@ func (a *App) storeParsedMessage(ctx context.Context, pm wa.ParsedMessage) error
 	}); err != nil {
 		return err
 	}
+	if pm.Revoked {
+		if err := a.db.InsertDeletion(store.InsertDeletionParams{
+			Kind:      "revoke",
+			ChatJID:   chatJID,
+			StanzaID:  pm.ID,
+			DeletedAt: pm.Timestamp,
+		}); err != nil {
+			a.emitWarning(
+				"deletion_revoke_store_failed",
+				fmt.Sprintf("warning: failed to record revoke deletion for message %s: %v", pm.ID, err),
+				map[string]any{"message_id": pm.ID, "chat_jid": chatJID, "error": err.Error()},
+			)
+		}
+	}
 	if pm.Call != nil {
 		pm.Call.Chat = pm.Chat
 		if pm.Call.SenderJID == "" {

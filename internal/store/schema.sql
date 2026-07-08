@@ -177,3 +177,16 @@ CREATE TABLE IF NOT EXISTS poll_votes (
 );
 
 CREATE INDEX IF NOT EXISTS idx_poll_votes_poll ON poll_votes(chat_jid, poll_msg_id);
+
+CREATE TABLE IF NOT EXISTS deletions (
+    rowid INTEGER PRIMARY KEY AUTOINCREMENT,
+    kind TEXT NOT NULL, -- revoke|delete_for_me|clear_chat|delete_chat
+    chat_jid TEXT NOT NULL,
+    stanza_id TEXT NOT NULL DEFAULT '', -- revoked/deleted message id; '' for chat-level kinds
+    from_me INTEGER, -- set only for delete_for_me; NULL otherwise
+    deleted_at INTEGER NOT NULL,
+    UNIQUE(kind, chat_jid, stanza_id, deleted_at)
+);
+
+CREATE INDEX IF NOT EXISTS idx_deletions_deleted_at ON deletions(deleted_at);
+CREATE INDEX IF NOT EXISTS idx_deletions_kind_deleted_at ON deletions(kind, deleted_at);

@@ -68,6 +68,7 @@ func execute(args []string) error {
 	rootCmd.AddCommand(newGroupsCmd(&flags))
 	rootCmd.AddCommand(newChannelsCmd(&flags))
 	rootCmd.AddCommand(newHistoryCmd(&flags))
+	rootCmd.AddCommand(newDeletionsCmd(&flags))
 	rootCmd.AddCommand(newPresenceCmd(&flags))
 	rootCmd.AddCommand(newProfileCmd(&flags))
 	rootCmd.AddCommand(newDocsCmd(&flags))

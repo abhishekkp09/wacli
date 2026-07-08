@@ -103,6 +103,12 @@ func (a *App) addSyncEventHandler(ctx context.Context, opts SyncOptions, message
 		case *events.DeleteForMe:
 			lastEvent.Store(nowUTC().UnixNano())
 			a.handleDeleteForMeEvent(ctx, v)
+		case *events.ClearChat:
+			lastEvent.Store(nowUTC().UnixNano())
+			a.handleClearChatEvent(ctx, v)
+		case *events.DeleteChat:
+			lastEvent.Store(nowUTC().UnixNano())
+			a.handleDeleteChatEvent(ctx, v)
 		case *events.Archive, *events.Pin, *events.Mute, *events.MarkChatAsRead:
 			lastEvent.Store(nowUTC().UnixNano())
 			a.handleChatStateEvent(ctx, v)
@@ -228,6 +234,59 @@ func (a *App) handleDeleteForMeEvent(ctx context.Context, evt *events.DeleteForM
 			"delete_for_me_store_failed",
 			fmt.Sprintf("warning: failed to store delete-for-me state for message %s: %v", evt.MessageID, err),
 			map[string]any{"message_id": evt.MessageID, "error": err.Error()},
+		)
+	}
+	if err := a.db.InsertDeletion(store.InsertDeletionParams{
+		Kind:      "delete_for_me",
+		ChatJID:   chatJID,
+		StanzaID:  evt.MessageID,
+		FromMe:    evt.IsFromMe,
+		DeletedAt: evt.Timestamp,
+	}); err != nil {
+		a.emitWarning(
+			"deletion_delete_for_me_store_failed",
+			fmt.Sprintf("warning: failed to record delete-for-me deletion for message %s: %v", evt.MessageID, err),
+			map[string]any{"message_id": evt.MessageID, "error": err.Error()},
+		)
+	}
+}
+
+// handleClearChatEvent records a clear-chat app-state mutation (all messages in a
+// chat cleared). Chat-level: no stanza id.
+func (a *App) handleClearChatEvent(ctx context.Context, evt *events.ClearChat) {
+	if evt == nil || evt.JID.IsEmpty() {
+		return
+	}
+	chatJID := canonicalJIDString(a.canonicalStoreJID(ctx, evt.JID))
+	if err := a.db.InsertDeletion(store.InsertDeletionParams{
+		Kind:      "clear_chat",
+		ChatJID:   chatJID,
+		DeletedAt: evt.Timestamp,
+	}); err != nil {
+		a.emitWarning(
+			"deletion_clear_chat_store_failed",
+			fmt.Sprintf("warning: failed to record clear-chat deletion for chat %s: %v", chatJID, err),
+			map[string]any{"chat_jid": chatJID, "error": err.Error()},
+		)
+	}
+}
+
+// handleDeleteChatEvent records a delete-chat app-state mutation (whole chat
+// deleted). Chat-level: no stanza id.
+func (a *App) handleDeleteChatEvent(ctx context.Context, evt *events.DeleteChat) {
+	if evt == nil || evt.JID.IsEmpty() {
+		return
+	}
+	chatJID := canonicalJIDString(a.canonicalStoreJID(ctx, evt.JID))
+	if err := a.db.InsertDeletion(store.InsertDeletionParams{
+		Kind:      "delete_chat",
+		ChatJID:   chatJID,
+		DeletedAt: evt.Timestamp,
+	}); err != nil {
+		a.emitWarning(
+			"deletion_delete_chat_store_failed",
+			fmt.Sprintf("warning: failed to record delete-chat deletion for chat %s: %v", chatJID, err),
+			map[string]any{"chat_jid": chatJID, "error": err.Error()},
 		)
 	}
 }
